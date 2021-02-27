@@ -14,9 +14,6 @@ public class SimularValoresController {
 	public ResponseEntity<String> simularValores(@RequestParam(name="codigoProduto") int codigoProduto,
 			@RequestParam(name="codTipoPagamento") int codTipoPagamento) {
 		/*
-		 * Exemplo de chamada:
-		 * https://<URL-REPL-IT>/simular?codigoProduto=1&codTipoPagamento=2
-		 * 
 		 * Elabore um algoritmo para calcular o valor final de um produto com base em seu valor REAL
 		 *  e a condição de pagamento.
 		 *  
@@ -47,12 +44,72 @@ public class SimularValoresController {
 		 * 
 		 * <descrição do produto> sendo pago <descrição da condição de pagamento> custará <valor final do produto> reais
 		 * 
-		 * Ex.: Camisa sendo pago A vista no dinheiro com 10% de desconto custará 63.0 reais
+		 * Ex.: Camisa sendo pago A vista no dinheiro com 10% de desconto custará 63.00 reais
 		 * 
 		 */
 		
+    String desc_produto = "";
+    double vlr_prod = 0.00;
+    switch(codigoProduto){
+
+      case 1:
+        desc_produto = "Camisa";
+        vlr_prod = 70.00;
+      break;
+
+      case 2:
+        desc_produto = "Shorts";
+        vlr_prod = 57.50;
+      break;
+
+      case 3:
+        desc_produto = "Meia";
+        vlr_prod = 9.99;
+      break;
+
+      case 4:
+        desc_produto = "Toca";
+        vlr_prod = 35.00;
+      break;
+
+      case 5:
+        desc_produto = "Luvas";
+        vlr_prod = 19.50;
+      break;
+
+    }
+
+    String desc_pagamento = "";
+    double vlr_final = 0.00;
+    String resultado = "";
+    switch(codTipoPagamento){
+
+      case 1:
+        desc_pagamento = "A vista no dinheiro com 10% de desconto";
+        vlr_final = (vlr_prod - (vlr_prod * 0.1));
+      break;
+
+      case 2:
+        desc_pagamento = "A vista no cartão de crédito  com 5% de desconto";
+        vlr_final = (vlr_prod - (vlr_prod * 0.05));
+      break;
+
+      case 3:
+        desc_pagamento = "Em duas parcelas sem nenhum desconto";
+        vlr_final = vlr_prod;
+      break;
+
+      case 4:
+        desc_pagamento = "Em três vezes com 10% de juros";
+        vlr_final = (vlr_prod - (vlr_prod * 0.1));
+      break;
+
+    }
+
+    String retorno = desc_produto + " sendo pago " + desc_pagamento + " custará " + vlr_final + " reais"; 
 		
-		return ResponseEntity.ok("Hello world !");
+		return ResponseEntity.ok(retorno);
+
 	}
 	
 }
